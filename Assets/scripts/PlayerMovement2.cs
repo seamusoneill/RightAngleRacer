@@ -10,11 +10,12 @@ public class PlayerMovement2 : MonoBehaviour {
 	int floorMask;
 	float camRayLength = 100f;
 	Vector3 direction;
-
+	Quaternion initrot;
 	void Awake()
 	{
 		floorMask = LayerMask.GetMask("Floor");
 		direction = Vector3.zero;
+		initrot = transform.rotation;
 	}
 
 	void FixedUpdate()

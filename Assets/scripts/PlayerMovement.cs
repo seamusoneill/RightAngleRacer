@@ -27,9 +27,9 @@ public class PlayerMovement : MonoBehaviour
 	void Move( float h, float v)
 	{
 		movement.Set(h, 0.0f, v);
-		movement = movement.normalized * speed * Time.deltaTime;
-
-		playerRigidbody.MovePosition(transform.position + movement);
+		movement = movement.normalized * speed;// * Time.deltaTime;
+		playerRigidbody.AddForce (movement);
+		//playerRigidbody.MovePosition(transform.position + movement);
 	}
 
 	void Turning()
@@ -46,5 +46,14 @@ public class PlayerMovement : MonoBehaviour
 			Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
 			playerRigidbody.MoveRotation(newRotation);
 		}
+	}
+
+	void OnCollisionEnter(Collision other)
+	{
+		if (other.collider.CompareTag("Wall"))
+			{		float h = Input.GetAxisRaw("Horizontal");
+				float v = Input.GetAxisRaw("Vertical");
+				Move (h * Mathf.Cos(90), v);
+			}
 	}
 }
